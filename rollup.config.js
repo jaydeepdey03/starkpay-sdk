@@ -36,6 +36,17 @@ export default [
             postcss({
                 extract: true,
                 minimize: true,
+                extract: "main.css",
+                minimize: true,
+                config: {
+                    path: './postcss.config.mjs',
+                },
+                extensions: ['.css'],
+                minimize: true,
+                inject: {
+                    insertAt: 'top',
+                },
+                plugins: [tailwindcss("./tailwind.config.js"), autoprefixer()],
             }),
             terser(),
 
@@ -49,11 +60,11 @@ export default [
     },
 
     {
-        input: "src/styles/main.css",
-        output: [{ file: "dist/index.css", format: "es" }],
+        input: "src/main.css",
+        output: [{ file: "dist/main.css", format: "es" }],
         plugins: [
             postcss({
-                extract: true,
+                extract: "main.css",
                 minimize: true,
                 config: {
                     path: './postcss.config.mjs',
