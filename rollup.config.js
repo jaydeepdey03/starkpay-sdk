@@ -5,6 +5,7 @@ import typescript from "@rollup/plugin-typescript";
 import postcss from "rollup-plugin-postcss";
 import dts from "rollup-plugin-dts";
 import tailwindcss from 'tailwindcss';
+import autoprefixer from "autoprefixer";
 
 const tailwindConfig = require('./tailwind.config.js');
 const packageJson = require("./package.json");
@@ -62,7 +63,7 @@ export default [
                 inject: {
                     insertAt: 'top',
                 },
-                plugins: [tailwindcss(tailwindConfig)],
+                plugins: [tailwindcss("./tailwind.config.js"), autoprefixer()],
             }),
         ],
     },
