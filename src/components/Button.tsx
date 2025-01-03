@@ -1,8 +1,10 @@
-import React from "react";
-interface ButtonProps {
+import React, {ButtonHTMLAttributes} from "react";
+import "../styles/main.css";
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
   onClick?: () => void;
-  // Add other props as needed
+  // Add any custom props here
 }
 
 export const Button: React.FC<ButtonProps> = ({
