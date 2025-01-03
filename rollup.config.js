@@ -4,10 +4,9 @@ import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import postcss from "rollup-plugin-postcss";
 import dts from "rollup-plugin-dts";
-import tailwindcss from 'tailwindcss';
+import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
 
-// const tailwindConfig = require('./tailwind.config.js');
 const packageJson = require("./package.json");
 
 export default [
@@ -28,28 +27,22 @@ export default [
         plugins: [
             resolve({
                 ignoreGlobal: false,
-                include: ['node_modules/**'],
-                skip: ['react', 'react-dom'],
+                include: ["node_modules/**"],
+                skip: ["react", "react-dom"],
             }),
             commonjs(),
-            typescript({ tsconfig: "./tsconfig.json", }),
+            typescript({ tsconfig: "./tsconfig.json" }),
             postcss({
-                extract: false,  // Change from "main.css" to false
-                modules: false,
-                inject: true,
-                minimize: true,
-                config: {
-                    path: './postcss.config.mjs',
-                },
-                extensions: ['.css'],
-                minimize: true,
-                inject: {
-                    insertAt: 'top',
-                },
-                plugins: [tailwindcss("./tailwind.config.js"), autoprefixer()],
+                extract: false, // Inline styles into the JS bundle
+                modules: true,  // Enable CSS Modules if needed
+                inject: true,   // Inject CSS into the <style> tag
+                minimize: true, // Minify CSS
+                plugins: [
+                    tailwindcss("./tailwind.config.js"),
+                    autoprefixer(),
+                ],
             }),
             terser(),
-
         ],
     },
     {
