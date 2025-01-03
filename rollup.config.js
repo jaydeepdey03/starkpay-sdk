@@ -4,7 +4,9 @@ import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import postcss from "rollup-plugin-postcss";
 import dts from "rollup-plugin-dts";
+import tailwindcss from 'tailwindcss';
 
+const tailwindConfig = require('./tailwind.config.js');
 const packageJson = require("./package.json");
 
 export default [
@@ -52,6 +54,15 @@ export default [
             postcss({
                 extract: true,
                 minimize: true,
+                config: {
+                    path: './postcss.config.mjs',
+                },
+                extensions: ['.css'],
+                minimize: true,
+                inject: {
+                    insertAt: 'top',
+                },
+                plugins: [tailwindcss(tailwindConfig)],
             }),
         ],
     },
