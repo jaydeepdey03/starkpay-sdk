@@ -7,7 +7,7 @@ import dts from "rollup-plugin-dts";
 import tailwindcss from 'tailwindcss';
 import autoprefixer from "autoprefixer";
 
-const tailwindConfig = require('./tailwind.config.js');
+// const tailwindConfig = require('./tailwind.config.js');
 const packageJson = require("./package.json");
 
 export default [
@@ -34,9 +34,9 @@ export default [
             commonjs(),
             typescript({ tsconfig: "./tsconfig.json", }),
             postcss({
-                extract: true,
-                minimize: true,
-                extract: "main.css",
+                extract: false,  // Change from "main.css" to false
+                modules: false,
+                inject: true,
                 minimize: true,
                 config: {
                     path: './postcss.config.mjs',
@@ -58,25 +58,4 @@ export default [
         plugins: [dts.default()],
         external: [/\.css$/],
     },
-
-    {
-        input: "src/main.css",
-        output: [{ file: "dist/main.css", format: "es" }],
-        plugins: [
-            postcss({
-                extract: "main.css",
-                minimize: true,
-                config: {
-                    path: './postcss.config.mjs',
-                },
-                extensions: ['.css'],
-                minimize: true,
-                inject: {
-                    insertAt: 'top',
-                },
-                plugins: [tailwindcss("./tailwind.config.js"), autoprefixer()],
-            }),
-        ],
-    },
-
 ];
