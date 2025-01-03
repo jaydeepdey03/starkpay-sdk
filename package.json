@@ -1,13 +1,13 @@
 {
   "name": "starkpay-sdk",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "",
   "scripts": {
     "rollup": "rollup -c --bundleConfigAsCjs"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/esm/dist/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
